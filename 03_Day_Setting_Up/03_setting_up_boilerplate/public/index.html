@@ -30,6 +30,27 @@
         color: black;
       }
 
+	  img {
+		height: 10rem;
+		margin : 2rem;
+	  }
+
+	  .skills-wrapper {
+		display: flex;
+		justify-content: flex-start;
+		flex-wrap: wrap;
+	  }
+
+	  .skills-alone {
+		margin: 10px;
+		background-color: #61dbfb;
+		height: 2rem;
+		width:max-content ;
+		padding: 5px;
+		white-space: nowrap;
+		border-radius: 10px;
+	  }
+
       .root {
         min-height: 100%;
         position: relative;
@@ -38,9 +59,36 @@
       .header-wrapper,
       .main-wrapper,
       .footer-wrapper {
-        width: 85%;
-        margin: auto;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background-color: #b3f0ff;
+		flex-direction: column;
       }
+
+	  .subscribeButton {
+		margin: 5px;
+		width: 10rem;
+		height: 2rem;
+		border-radius: 10px;
+		background-color: #f91616b2;
+		border: none;
+		color: aliceblue;
+	  }
+
+	  .firstName,
+	  .lastName,
+	  .email {
+		margin: 20px 10px;
+		width: 10rem;
+		height: 2rem;
+		border-radius: 10px;
+		outline: none;
+		padding: 0 20px;
+		background-color: aliceblue;
+		border: none;
+	  }
+
 
       .header-wrapper,
       .main-wrapper {
@@ -48,8 +96,14 @@
         margin: 2px auto;
       }
 
+	  .h1Div {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-direction: column;
+	  }
+
       h1 {
-        font-size: 70px;
         font-weight: 300;
       }
 
@@ -65,6 +119,7 @@
 
       main {
         padding: 10px 10px 60px;
+		margin-top: 10rem;
         /* Height of the footer */
       }
 

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link
+		href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500|Roboto:300,400,500&display=swap"
+		rel="stylesheet"
+		/>
+	</head>
+	<body>
+	
+	<div class="root"></div>
+
+    <script
+      crossorigin
+      src="https://unpkg.com/react@16/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"
+    ></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+		const rootElement = document.querySelector('.root');
+
+		const welcome = 'Welcome the 30 Days of React';
+
+		const main = (
+        <header>
+          <div className='header-wrapper'>
+            <h1>{welcome}</h1>
+          </div>
+        </header>
+      )
+		ReactDOM.render(main, rootElement);
+		
+	</script>
+	</body>
+</html>
