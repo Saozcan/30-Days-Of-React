@@ -2,6 +2,40 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 
+class GameCard extends Component {
+
+	state = {
+		bottom: 0,
+		left: 0
+	}
+	handlingOnMouse = () => {
+		this.setState({bottom: this.state.bottom = Math.floor(Math.random() * 55)})
+		this.setState({left: this.state.bottom = Math.floor(Math.random() * 55)})
+	}
+
+	render () {
+    const style = {
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      width: "35rem",
+      color: "white",
+      height: "auto",
+      backgroundColor: "blue",
+      position: "absolute",
+      bottom: `${this.state.bottom}rem`,
+      left: `${this.state.left}rem`,
+    };
+    const h1Style = {};
+
+    return (
+      <div style={style} onMouseMove={this.handlingOnMouse}>
+        <h1 style={h1Style}>30 Days Of React</h1>
+      </div>
+    );
+  }
+}
+
 class App extends Component {
   state = {
     firstName: '',
@@ -78,6 +112,7 @@ class App extends Component {
             <input type='submit' value='Submit' />
           </div>
         </form>
+		<GameCard />
       </div>
     )
   }
