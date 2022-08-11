@@ -3,7 +3,7 @@ import Header from './components/header/Header'
 import Main from './components/main/Main'
 import Footer from './components/footer/Footer'
 import { countriesData } from './data/countries'
-import asabenehImage from './assets/images/asabeneh.jpg'
+import asabenehImage from './images/asabeneh.jpg'
 import { showDate } from './utils/display-date-and-time'
 
 class App extends React.Component {
@@ -39,7 +39,8 @@ class App extends React.Component {
       date: new Date(),
     }
     const techs = ['HTML', 'CSS', 'JavaScript']
-    const user = { ...data.author, image: asabenehImage }
+    const user = { ...data.author, image: asabenehImage, techs, alt: 'Asabeneh'}
+	console.log(user)
 
     return (
       <div className='app'>

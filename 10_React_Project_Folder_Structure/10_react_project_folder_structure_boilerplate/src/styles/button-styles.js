@@ -10,3 +10,4 @@ export const buttonStyles = {
   color: 'white',
   margin: '0 auto',
 }
+

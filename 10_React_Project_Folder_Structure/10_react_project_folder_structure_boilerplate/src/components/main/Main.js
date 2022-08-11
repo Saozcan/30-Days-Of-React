@@ -3,7 +3,8 @@ import Button from '../shared/Button'
 import HexaColr from '../color/HexaColor'
 import Country from '../country/Country'
 import UserCard from '../user/UserCard'
-import { buttonStyles } from '../../styles/button-styles'
+import { buttonStyles,  } from '../../styles/button-styles'
+import UserCardNew from '../user/UserCardNew'
 
 
 // TechList Component
@@ -55,9 +56,17 @@ class Main extends React.Component {
     console.log(message)
 
     const status = loggedIn ? <Welcome /> : <Login />
+	const userStyle = {
+		display: 'flex',
+		justifyContent: 'center',
+		alignItems: 'center',
+	}
     return (
       <main>
-        <div className='main-wrapper'>
+        <div className="main-wrapper">
+          <div style={userStyle}>
+            <UserCardNew user={user} />
+          </div>
           <p>Prerequisite to get started react.js:</p>
           <ul>
             <TechList techs={this.props.techs} />
@@ -70,12 +79,12 @@ class Main extends React.Component {
           )}
           <div>
             <Button
-              text='Show Time'
+              text="Show Time"
               onClick={handleTime}
               style={buttonStyles}
-            />{' '}
+            />{" "}
             <Button
-              text='Greet People'
+              text="Greet People"
               onClick={greetPeople}
               style={buttonStyles}
             />
@@ -88,7 +97,7 @@ class Main extends React.Component {
           </div>
           <div style={{ margin: 30 }}>
             <Button
-              text={loggedIn ? 'Logout' : 'Login'}
+              text={loggedIn ? "Logout" : "Login"}
               style={buttonStyles}
               onClick={handleLogin}
             />
@@ -101,7 +110,7 @@ class Main extends React.Component {
           <Country country={country} />
         </div>
       </main>
-    )
+    );
   }
 }
 
