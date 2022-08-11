@@ -2,6 +2,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import asabenehImage from './images/asabeneh.jpg'
+import { countriesData } from './data/countries.js'
 
 // Fuction to show month date year
 
@@ -45,6 +46,72 @@ const Button = ({ text, onClick, style }) => (
   </button>
 )
 
+class CountryCard extends React.Component {
+	constructor(props) {
+		super(props)
+	}
+	render() {
+		const {
+			name,
+			capital,
+			languages,
+			population,
+			flag,
+			currency,
+		} = this.props.data
+
+		const style = {
+			width: '40rem',
+			height: '30rem',
+			backgroundColor: '#EDEADE',
+			display: 'flex',
+			alignItems: 'center',
+			flexDirection: 'column',
+			boxShadow: `0 0px 10px 4px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)`
+		}
+		const imgDiv = {
+			margin: '1rem',
+		}
+		const imgTagDiv = {
+			width: '15rem',
+			borderRadius: '5px'
+		}
+		const nameStyle = {
+
+		}
+		const detailsStyle = {
+			width: '25rem',
+			marginTop: '1.5rem',
+
+		}
+		const ulStyle = {
+
+		}
+		const spanStyle = {
+			fontWeight: 'bold',
+		}
+
+		return (
+			<div style={style}>
+				<div style={imgDiv}>
+					<img style={imgTagDiv} src={asabenehImage} alt={name}></img>
+				</div>
+				<div style={nameStyle}>
+					<h2>{name}</h2>
+				</div>
+				<div style={detailsStyle}>
+					<ul style={ulStyle}>
+						<li><span style={spanStyle}>Capital:</span> {capital}</li>
+						<li><span style={spanStyle}>Languages:</span> {languages}</li>
+						<li><span style={spanStyle}>Population:</span> {population}</li>
+						<li><span style={spanStyle}>Curreny:</span> {currency}</li>
+					</ul>
+				</div>
+			</div>
+		)
+	}
+}
+
 // CSS styles in JavaScript Object
 const buttonStyles = {
   backgroundColor: '#61dbfb',
@@ -64,17 +131,21 @@ class Header extends React.Component {
     // the code inside the constructor run before any other code
   }
   render() {
-    console.log(this.props.data)
     const {
       welcome,
       title,
       subtitle,
       author: { firstName, lastName },
       date,
+	  backColor,
     } = this.props.data
 
+	const style = {
+		backgroundColor: `${backColor === '#10182a' ? '#10182a' : '#60dbfc'}`,
+		color: `${backColor === '#10182a' ? 'white' : 'black'}`
+	}
     return (
-      <header style={this.props.styles}>
+      <header style={style}>
         <div className='header-wrapper'>
           <h1>{welcome}</h1>
           <h2>{title}</h2>
@@ -128,30 +199,52 @@ class Main extends React.Component {
       count,
       addOne,
       minusOne,
+	  backColor,
+	  randomNumber,
+	  randomNumberSetState,
     } = this.props
+	const style = {
+		backgroundColor: `${backColor === '#10182a' ? '#10182a' : 'white'}`,
+		color: `${backColor === '#10182a' ? 'white' : 'black'}`
+	}
+	const countryCardStyle = {
+		display: 'flex',
+		justifyContent: 'center',
+		flexDirection: 'column',
+		alignItems: 'center',
+	}
+	const countryButtonStyle = {
+		margin: '1rem',
+	}
     return (
-      <main>
-        <div className='main-wrapper'>
+      <main style={style}>
+        <div className="main-wrapper">
           <p>Prerequisite to get started react.js:</p>
           <ul>
             <TechList techs={techs} />
           </ul>
           <UserCard user={user} />
           <Button
-            text='Greet People'
+            text="Greet People"
             onClick={greetPeople}
             style={buttonStyles}
           />
-          <Button text='Show Time' onClick={handleTime} style={buttonStyles} />
+          <Button text="Show Time" onClick={handleTime} style={buttonStyles} />
           <Button
-            text='Change Background'
+            text="Change Background"
             onClick={changeBackground}
             style={buttonStyles}
           />
           <Count count={count} addOne={addOne} minusOne={minusOne} />
+          <div style={countryCardStyle}>
+            <CountryCard data={countriesData[randomNumber]} />
+			<div style={countryButtonStyle} onClick={randomNumberSetState}>
+				<Button text={'Select Country'} style={buttonStyles} />
+			</div>
+          </div>
         </div>
       </main>
-    )
+    );
   }
 }
 
@@ -162,9 +255,14 @@ class Footer extends React.Component {
     super(props)
   }
   render() {
+
+	const style = {
+		backgroundColor: `${this.props.backColor === '#10182a' ? '#10182a' : '#60dbfc'}`,
+		color: `${this.props.backColor === '#10182a' ? 'white' : 'black'}`
+	}
     return (
-      <footer>
-        <div className='footer-wrapper'>
+      <footer style={style}>
+        <div className='footer-wrapper' >
           <p>Copyright {this.props.date.getFullYear()}</p>
         </div>
       </footer>
@@ -172,9 +270,16 @@ class Footer extends React.Component {
   }
 }
 
+/* const changeBackground = ""
+const mainStyle = document.getElementById('main');
+if (changeBackground) {
+	mainStyle.style.backgroundColor = changeBackground;
+} */
+
 class App extends React.Component {
   state = {
     count: 0,
+	randomNumber: 10,
     styles: {
       backgroundColor: '',
       color: '',
@@ -195,7 +300,6 @@ class App extends React.Component {
       'November',
       'December',
     ]
-
     const month = months[time.getMonth()].slice(0, 3)
     const year = time.getFullYear()
     const date = time.getDate()
@@ -204,7 +308,6 @@ class App extends React.Component {
   addOne = () => {
     this.setState({ count: this.state.count + 1 })
   }
-
   // method which subtract one to the state
   minusOne = () => {
     this.setState({ count: this.state.count - 1 })
@@ -215,7 +318,13 @@ class App extends React.Component {
   greetPeople = () => {
     alert('Welcome to 30 Days Of React Challenge, 2020')
   }
-  changeBackground = () => {}
+  changeBackground = () => {
+	  //this.setState({backgroundColor: `${this.state.backgroundColor === 'white' ? '#10182a' : 'white'}`})
+	  this.setState({backgroundColor: this.state.styles.backgroundColor = `${this.state.styles.backgroundColor === 'white' ? '#10182a' : 'white'}`})
+  }
+  getRandomNumber = () => {
+	this.setState({randomNumber: this.state.randomNumber = `${Math.floor(Math.random() * countriesData.length)}`})
+  }
   render() {
     const data = {
       welcome: 'Welcome to 30 Days Of React',
@@ -226,6 +335,7 @@ class App extends React.Component {
         lastName: 'Yetayeh',
       },
       date: 'Oct 7, 2020',
+	  backColor: this.state.styles.backgroundColor,
     }
     const techs = ['HTML', 'CSS', 'JavaScript']
     const date = new Date()
@@ -234,7 +344,7 @@ class App extends React.Component {
 
     return (
       <div className='app'>
-        {this.state.backgroundColor}
+        {/* {this.state.backgroundColor} */}
         <Header data={data} />
         <Main
           user={user}
@@ -245,8 +355,11 @@ class App extends React.Component {
           addOne={this.addOne}
           minusOne={this.minusOne}
           count={this.state.count}
+		  backColor={this.state.styles.backgroundColor}
+		  randomNumber={this.state.randomNumber}
+		  randomNumberSetState={this.getRandomNumber}
         />
-        <Footer date={new Date()} />
+        <Footer date={new Date()} backColor={this.state.styles.backgroundColor}/>
       </div>
     )
   }
