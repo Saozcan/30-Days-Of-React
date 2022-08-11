@@ -1,4 +1,4 @@
-// index.js
+/* // index.js
 import React from 'react'
 import ReactDOM from 'react-dom'
 
@@ -225,3 +225,109 @@ class App extends React.Component {
 
 const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
+ */
+
+import React from 'react'
+import ReactDOM from 'react-dom'
+
+class Header extends React.Component {
+	render () {
+		const headerStyle = {
+		}
+		return (
+			<header className='header-wrapper'>
+				<div style={headerStyle}>
+					Header
+				</div>
+			</header>
+		)
+	}
+}
+
+const DataDownloading = ({download}) => {
+	const style = {
+
+	}
+	return (
+		<div style={style}>
+			<div>
+				<p>{download}</p>
+			</div>
+		</div>
+	)
+}
+
+class Main extends React.Component {
+	render () {
+		const {
+			onClick,
+			onClickSec,
+		} = this.props;
+
+		const mainStyle = {
+			display: 'flex',
+			justifyContent: 'center',
+			alignItems: 'center',
+			flexDirection: 'column',
+		}
+		return (
+			<main className='main-wrapper'>
+				<div style={mainStyle}>
+					Main
+					<button onClick={onClick} >ChangeColor</button>
+					<button onClick={onClickSec} >Download Data</button>
+					<DataDownloading download={this.props.download}/>
+				</div>
+			</main>
+		)
+	}
+}
+
+class Footer extends React.Component {
+	render () {
+		const footerStyle = {
+		}
+		return (
+			<footer className='footer-wrapper'>
+				<div style={footerStyle}>
+					Footer
+				</div>
+			</footer>
+		)
+	}
+}
+const bodyElement = document.querySelector('body');
+class App extends React.Component {
+	state = {
+		backGroundColor: 'white',
+		color: 'black',
+		download: 'Will Download.',
+	}
+	changeBackColor = () => {
+		this.setState({ backGroundColor: this.state.backGroundColor === 'white' ? 'black' : 'white' })
+		this.setState({color: this.state.backGroundColor === 'white' ? 'white' : 'black'});
+	}
+	downloaded = () => {
+		this.setState({download: 'on process'})
+		const funcSet = () => {
+			this.setState({ download: 'finished' })
+		}
+		setTimeout(funcSet, 2000);
+	}
+	render () {	
+		bodyElement.style.backgroundColor = this.state.backGroundColor;
+		bodyElement.style.color = this.state.color;	
+		return (
+			<div className='app-wrapper'>
+				<Header />
+				<Main onClick={this.changeBackColor} download={this.state.download} onClickSec={this.downloaded}/>
+				<Footer />
+			</div>
+		)
+	}
+}
+
+const rootElement = document.getElementById('root');
+ReactDOM.render(<App/>, rootElement);
+
+
