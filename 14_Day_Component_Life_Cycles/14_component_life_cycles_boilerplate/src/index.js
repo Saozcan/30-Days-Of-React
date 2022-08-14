@@ -8,6 +8,7 @@ class App extends Component {
     this.state = {
       firstName: 'John',
       data: [],
+	  day: 1,
     }
   }
 
@@ -28,6 +29,23 @@ class App extends Component {
         console.log(error)
       })
   }
+
+  shouldComponentUpdate(nextProps, nextState) {
+	console.log(nextProps, nextState);
+	console.log(nextState.day);
+	return true
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+	console.log(prevState, prevProps)
+  }
+
+  doChallenge = () => {
+	this.setState({
+		day: this.state.day + 1,
+	})
+  }
+
   renderCountries = () => {
     return this.state.data.map((country) => {
       return (
@@ -54,6 +72,10 @@ class App extends Component {
           <p>There are {this.state.data.length} countries in the api</p>
           <div className='countries-wrapper'>{this.renderCountries()}</div>
         </div>
+		<div>
+			<button onClick={this.doChallenge}>Do Challenge</button>
+			<p>Challenge: Day {this.state.day}</p>
+		</div>
       </div>
     )
   }
