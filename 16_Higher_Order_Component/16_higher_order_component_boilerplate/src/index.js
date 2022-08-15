@@ -1,5 +1,11 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
+import {
+	BrowserRouter as Router,
+	Routes,
+	Route,
+	Link
+} from 'react-router-dom';
 
 const Button = ({ onClick, text, style }) => {
   return (
@@ -98,44 +104,85 @@ const FourthButton = userCard(Button);
 class App extends Component {
   render() {
     return (
-      <div className='App'>
+      <div className="App">
         <h1>Higher Order Components</h1>
-        <Button text='No Style' onClick={() => alert('I am not styled yet')} />
+        <Button text="No Style" onClick={() => alert("I am not styled yet")} />
         <NewButton
-          text='Styled Button'
-          onClick={() => alert('I am the default style')}
+          text="Styled Button"
+          onClick={() => alert("I am the default style")}
         />
-        <ReactButton text='React' onClick={() => alert('I have react color')} />
+        <ReactButton text="React" onClick={() => alert("I have react color")} />
         <InfoButton
-          text='Info'
-          onClick={() => alert('I am styled with info color')}
+          text="Info"
+          onClick={() => alert("I am styled with info color")}
         />
-        <SuccessButton text='Success' onClick={() => alert('I am successful')} />
+        <SuccessButton
+          text="Success"
+          onClick={() => alert("I am successful")}
+        />
         <WarningButton
-          text='Warning'
-          onClick={() => alert('I warn you many times')}
+          text="Warning"
+          onClick={() => alert("I warn you many times")}
         />
         <DangerButton
-          text='Danger'
-          onClick={() => alert('Oh no, you can not restore it')}
+          text="Danger"
+          onClick={() => alert("Oh no, you can not restore it")}
         />
 
-		<FirstButton
-		text='FirstButton' onClick={() => alert('First button')}
-		/>
-		<SecButton
-		text='SecButton' onClick={() => alert('Second Button')}
-		/>
-		<ThirdButton
-		text='ThirdButton' onClick={() => alert('Third button')}
-		/>
-		<FourthButton
-		text='FourthButton' onClick={() => alert('Fourth Button')}
-		/>
+        <FirstButton text="FirstButton" onClick={() => alert("First button")} />
+        <SecButton text="SecButton" onClick={() => alert("Second Button")} />
+        <ThirdButton text="ThirdButton" onClick={() => alert("Third button")} />
+        <FourthButton
+          text="FourthButton"
+          onClick={() => alert("Fourth Button")}
+        />
+        <Router>
+          <div>
+            <nav>
+              <ul>
+                <li>
+                  <Link to="/">Home</Link>
+                </li>
+                <li>
+                  <Link to="/about">About</Link>
+                </li>
+                <li>
+                  <Link to="/users">Users</Link>
+                </li>
+                <li>
+                  <Link to="/contact">Contact</Link>
+                </li>
+                <li>
+                  <Link to="/challenges">Challenges</Link>
+                </li>
+              </ul>
+            </nav>
+            <Routes>
+              <Route path="/about" element={<About />} />
+              <Route path="/users" element={<Users />} />
+              <Route path="/" element={<Home />} />
+			  <Route exact strict path="/contact" element={<Contact />} />
+              <Route exact strict path="/challenges" element={<Challenges />} />
+            </Routes>
+          </div>
+        </Router>
       </div>
-    )
+    );
   }
 }
+
+// Contact component
+const Contact = (props) => <h1>Contact us</h1>
+// Challenge component
+const Challenges = (props) => (
+  <div>
+    <h1>30 Days Of React Challenge</h1>
+  </div>
+)
+
+const Home = () => <h2>Home</h2>;
+const About = () => <h2>About</h2>;
+const Users = () => <h2>Users</h2>;
 
 const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
