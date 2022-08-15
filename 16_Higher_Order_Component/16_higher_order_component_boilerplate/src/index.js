@@ -54,6 +54,8 @@ const buttonWithStyles = (CompParam, name = 'default') => {
     fontSize: '1.25rem',
     color,
   }
+
+
   return (props) => {
     return <CompParam {...props} style={buttonStyles} />
   }
@@ -65,6 +67,33 @@ const InfoButton = buttonWithStyles(Button, 'info')
 const WarningButton = buttonWithStyles(Button, 'warning')
 const DangerButton = buttonWithStyles(Button, 'danger')
 const SuccessButton = buttonWithStyles(Button, 'success')
+
+
+
+const userCard = (ComponentParameter) => {
+
+	const buttonStyles = {
+		backgroundColor: 'white',
+		padding: '10px 45px',
+		border: 'none',
+		borderRadius: 3,
+		margin: 3,
+		cursor: 'pointer',
+		fontSize: '1.25rem',
+		color: 'red',
+	  }
+
+	  return (props) => {
+		return <ComponentParameter {...props} style={buttonStyles} />
+	  }
+}
+
+const FirstButton = userCard(Button);
+const SecButton = userCard(Button);
+const ThirdButton = userCard(Button);
+const FourthButton = userCard(Button);
+
+
 
 class App extends Component {
   render() {
@@ -90,6 +119,19 @@ class App extends Component {
           text='Danger'
           onClick={() => alert('Oh no, you can not restore it')}
         />
+
+		<FirstButton
+		text='FirstButton' onClick={() => alert('First button')}
+		/>
+		<SecButton
+		text='SecButton' onClick={() => alert('Second Button')}
+		/>
+		<ThirdButton
+		text='ThirdButton' onClick={() => alert('Third button')}
+		/>
+		<FourthButton
+		text='FourthButton' onClick={() => alert('Fourth Button')}
+		/>
       </div>
     )
   }
