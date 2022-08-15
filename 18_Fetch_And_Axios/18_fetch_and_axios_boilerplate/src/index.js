@@ -28,17 +28,48 @@ class App extends Component {
     this.fetchCountryData()
   }
   fetchCountryData = async () => {
-    const url = 'https://restcountries.eu/rest/v2/all'
+	const url = 'https://api.thecatapi.com/v1/breeds';
+	try {
+		const response = await axios.get(url);
+		const data = await response.data;
+
+
+		const life_span = [];
+		const metricValue = [];
+
+		data.map((element) => {
+			const {weight} = element;
+			life_span.push({"life span:": element.life_span})
+			metricValue.push({metric: weight.metric})
+		})
+		console.log(metricValue);
+		console.log(life_span);
+
+	} catch (error) {
+		console.log(error);
+	}
+  }
+  /* fetchCountryData = async () => {
+    const url = 'https://api.thecatapi.com/v1/bres'
     try {
-      const response = await axios.get(url)
-      const data = await response.data
+      const response = await axios.get(url);
+      const data = await response.data;
+
+	  console.log(data);
+
+      const nameAndCountry = [];
+	  data.map((element) => {
+		nameAndCountry.push({name: element.id, country: element.origin})
+	  })
+	  console.log(nameAndCountry);
+
       this.setState({
         data,
-      })
+      });
     } catch (error) {
       console.log(error)
     }
-  }
+  } */
 
   render() {
     return (
