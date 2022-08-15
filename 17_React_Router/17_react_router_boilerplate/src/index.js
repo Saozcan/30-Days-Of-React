@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom'
 import {
   BrowserRouter as Router,
   Route,
-  Switch,
-  NavLink,
-  Redirect,
+  Routes,
+  Link,
+  Navigate,
   Prompt,
 } from 'react-router-dom'
 
@@ -167,21 +167,21 @@ const Challenges = (props) => {
       <ul>
         {challenges.map(({ name, slug }) => (
           <li key={slug}>
-            <NavLink to={`/challenges/${slug}`}>{name}</NavLink>
+            <Link to={`/challenges/${slug}`}>{name}</Link>
           </li>
         ))}
       </ul>
-      <Switch>
+      <Routes>
         <Route
           exact
           path={'/challenges'}
-          component={() => <h1>Choose any of the challenges</h1>}
+          element={() => <h1>Choose any of the challenges</h1>}
         />
         <Route
           path={path}
-          component={(props) => <Challenge challenge={challenge} />}
+          element={(props) => <Challenge challenge={challenge} />}
         />
-      </Switch>
+      </Routes>
     </div>
   )
 }
@@ -190,19 +190,19 @@ const NotFound = (props) => <h1>The page your looking for not found</h1>
 const Navbar = ({ username }) => (
   <ul>
     <li>
-      <NavLink to='/'>Home</NavLink>
+      <Link to='/'>Home</Link>
     </li>
     <li>
-      <NavLink to='/about'>About</NavLink>
+      <Link to='/about'>About</Link>
     </li>
     <li>
-      <NavLink to='/contact'>Contact</NavLink>
+      <Link to='/contact'>Contact</Link>
     </li>
     <li>
-      <NavLink to={`/user/${username}`}>User</NavLink>
+      <Link to={`/user/${username}`}>User</Link>
     </li>
     <li>
-      <NavLink to='/challenges'>Challenges</NavLink>
+      <Link to='/challenges'>Challenges</Link>
     </li>
   </ul>
 )
@@ -248,21 +248,19 @@ class App extends Component {
         <div className='App'>
           <Navbar username={this.state.firstName} />
 
-          <Prompt
             message={({ pathname }) => {
               return this.state.isLoggedIn &&
                 pathname.includes('/user/Asabeneh')
                 ? 'Are you sure you want to logout?'
                 : true
             }}
-          />
 
-          <Switch>
-            <Route path='/about' component={About} />
-            <Route path='/contact' component={Contact} />
+          <Routes>
+            <Route path='/about' element={<About />} />
+            <Route path='/contact' element={<Contact />} />
             <Route
               path='/user/:username'
-              component={(props) => (
+              element={(props) => (
                 <User
                   {...props}
                   isLoggedIn={this.state.isLoggedIn}
@@ -272,7 +270,7 @@ class App extends Component {
             />
             <Route
               path='/login'
-              component={(props) => (
+              element={(props) => (
                 <Welcome
                   {...props}
                   isLoggedIn={this.state.isLoggedIn}
@@ -282,17 +280,17 @@ class App extends Component {
             />
             <Route
               path='/challenges'
-              component={(props) => {
+              element={(props) => {
                 return this.state.isLoggedIn ? (
                   <Challenges {...props} />
                 ) : (
-                  <Redirect to='/user/asabeneh' />
+                  <Navigate to='/user/asabeneh' />
                 )
               }}
             />
-            <Route exact path='/' component={Home} />
-            <Route component={NotFound} />
-          </Switch>
+            <Route exact path='/' element={<Home />} />
+            <Route element={<NotFound />} />
+          </Routes>
         </div>
       </Router>
     )
