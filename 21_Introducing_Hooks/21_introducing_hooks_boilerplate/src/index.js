@@ -2,6 +2,7 @@
 import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 import asabenehImage from './images/asabeneh.jpg'
+
 import './index.scss'
 
 // Fuction to show month date year
@@ -109,9 +110,16 @@ const Main = (props) => {
     count,
     addOne,
     minusOne,
+	bgcolor,
+	newColor,
   } = props
+
+  const style = {
+	backgroundColor: `${bgcolor}`,
+	color: `${newColor}`,
+  }
   return (
-    <main>
+    <main style={style}>
       <div className='main-wrapper'>
         <p>Prerequisite to get started react.js:</p>
         <ul>
@@ -148,7 +156,8 @@ const Footer = (props) => {
 
 const App = (props) => {
   const [count, setCount] = useState(0)
-  const [backgroundColor, setBackgroundColor] = useState('')
+  const [backgroundColor, setBackgroundColor] = useState('white')
+  const [color, setColor] = useState('black')
 
   const showDate = (time) => {
     const months = [
@@ -175,6 +184,7 @@ const App = (props) => {
     setCount(count + 1)
   }
 
+
   // method which subtract one to the state
   const minusOne = () => {
     setCount(count - 1)
@@ -185,7 +195,12 @@ const App = (props) => {
   const greetPeople = () => {
     alert('Welcome to 30 Days Of React Challenge, 2020')
   }
-  const changeBackground = () => {}
+  const changeBackground = () => {
+	let bgColor = backgroundColor === 'white' ? 'black' : 'white';
+	let newColor = color === 'black' ? 'white' : 'black';
+	setBackgroundColor(bgColor);
+	setColor(newColor);
+  }
 
   const data = {
     welcome: 'Welcome to 30 Days Of React',
@@ -211,6 +226,8 @@ const App = (props) => {
         handleTime={handleTime}
         greetPeople={greetPeople}
         changeBackground={changeBackground}
+		bgcolor={backgroundColor}
+		newColor={color}
         addOne={addOne}
         minusOne={minusOne}
         count={count}
