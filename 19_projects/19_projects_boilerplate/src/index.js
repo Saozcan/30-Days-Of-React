@@ -3,6 +3,39 @@ import ReactDOM from 'react-dom'
 import axios from 'axios'
 
 
+const averaheValue = (values) => {
+
+	console.log(values);
+
+	const metric = [];
+	const life_span = [];
+
+	values.map((element) => {
+		metric.push(element.weight.metric);
+		life_span.push(element.life_span);
+	})
+
+	let totalCat = values.length;
+
+	let metricTotalNumber = 0;
+	let lifeTotalNumber = 0;
+
+	let averageMetric = 0;
+	let averageLife = 0;
+	
+	metric.map((element) => {
+		metricTotalNumber += (Number(element.split('-')[0]) + Number(element.split('-')[1]))
+	})
+	averageMetric = (metricTotalNumber / (metric.length * 2)).toFixed(2);
+
+	life_span.map((element) => {
+		lifeTotalNumber += (Number(element.split('-')[0]) + Number(element.split('-')[1]));
+	})
+	averageLife = (lifeTotalNumber / (life_span.length * 2)).toFixed(2);
+
+	return {metric: averageMetric, life: averageLife, total: totalCat}
+}
+
 class Header extends React.Component {
 
 	render () {
@@ -18,11 +51,9 @@ class Header extends React.Component {
 			flexDirection: 'column',
 		}
 
-		const {
-			totalCats,
-			averageKilos,
-			averageLife
-		} = this.props;
+		const averageValues = averaheValue(this.props.data);
+		console.log(averageValues)
+
 
 		return (
 			<div className='header-wrapper'>
@@ -31,16 +62,17 @@ class Header extends React.Component {
 				</div>
 				<div style={catDetails}>
 					<h2>Cats Paradise</h2>
-					<h2>There are <span>{totalCats}</span> cat breeds</h2>
-					<p>On average a cat can weight about 
-						<span>{averageKilos}</span>
-						<span>{averageLife}</span>
+					<h2>There are <span>{averageValues.total}</span> cat breeds</h2>
+					<p>On average a cat can <span>{averageValues.metric}</span> weight about 
+						<span> {averageValues.life}</span>
 						</p>
 				</div>
 			</div>
 		)
 	}
 }
+
+
 
 const CatCard = ({data}) => {
 	const style = {
@@ -56,6 +88,7 @@ const CatCard = ({data}) => {
 		display: 'flex',
 		justifyContent: 'center',
 		alignItems: 'center',
+		overflow: 'hidden',
 	}
 	const imgTag = {
 		width: '50rem',
@@ -113,7 +146,6 @@ const CatCards = ({datas}) => {
 	}
 
 	const catDataLists = datas.map((element) => <CatCard data={element} />)
-	console.log(catDataLists);
 
 	return (
 		<div style={style}>
@@ -148,7 +180,7 @@ class Main extends React.Component {
 class App extends React.Component {
 state = {
 	data: [],
-	headerData: [],
+	metric: [],
 }
 
 componentDidMount() {
@@ -162,6 +194,7 @@ getCatDatas = async () => {
 		const data = await response.data;
 		
 		const catData = []
+		const catWeightLife = []
 		data.map((element) => {
 			
 			const {
@@ -187,8 +220,16 @@ getCatDatas = async () => {
 					}
 					catData.push(newData);
 				}
+			if (weight && life_span) {
+				const newDataWeightLife = {
+					weight,
+					life_span,
+				}
+				catWeightLife.push(newDataWeightLife);
+			}
 		})
 		this.setState({data: catData});
+		this.setState({metric: catWeightLife});
 	}
 	catch(error) {
 		console.log(error);
@@ -198,7 +239,7 @@ getCatDatas = async () => {
 	render () {
 		return (
 			<div className='App'>
-				<Header />
+				<Header data={this.state.metric}/>
 				<Main />
 				<CatCards datas={this.state.data} />
 				{/* <Footer /> */}
