@@ -70,13 +70,13 @@ const App = (props) => {
     /*
     [variablename] we can make a value stored in a certain variable could be a key for an object, in this case a key for the state
     */
-
     if (type === 'checkbox') {
       setFormData({
         ...formData,
         skills: { ...formData.skills, [name]: checked },
-      })
+      });
     } else if (type === 'file') {
+		console.log(e.target.files[0])
       setFormData({ ...formData, [name]: e.target.files[0] })
     } else {
       setFormData({ ...formData, [name]: value })
@@ -142,7 +142,6 @@ const App = (props) => {
     const errors = {
       firstName: '',
     }
-
     if (
       (formData.touched.firstName && formData.firstName.length < 3) ||
       (formData.touched.firstName && formData.firstName.length > 12)
