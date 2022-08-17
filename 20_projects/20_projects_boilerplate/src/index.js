@@ -324,7 +324,7 @@ getCatDatas = async () => {
 	}
 }
 
-	changeFilterValue = (parameter) =>  (e) => {
+	changeFilterValue = (parameter) => (e) => {
 		const newData = this.state.noChangeData.filter((element) => 
 			element.origin.toUpperCase() === parameter.toUpperCase())
 		this.setState({data: newData});
