@@ -1,0 +1,85 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>
+		How to set smooth scrolling after
+		clicking an anchor link using
+		JavaScript?
+	</title>
+	
+	<script src=
+		"https://code.jquery.com/jquery-3.4.1.min.js">
+	</script>
+	
+	<style>
+		.scroll {
+			height: 1000px;
+		}
+	</style>
+</head>
+
+<body style="height: 1000rem;">
+	<h1 style="color: green">
+		GeeksforGeeks
+	</h1>
+
+	<b>
+		How to set smooth scrolling after
+		clicking an anchor link using
+		JavaScript?
+	</b>
+	
+	<p id="dest">
+		Click on the button below to
+		scroll to the top of the page.
+	</p>
+
+	
+	<p class="scroll">
+		GeeksforGeeks is a computer science
+		portal. This is a large scrollable
+		area.
+	</p>
+
+	
+	<a href="#dest">
+		Scroll to top
+	</a>
+	
+	<script>
+		
+		// Define selector for selecting
+		// anchor links with the hash
+		let anchorSelector = 'a[href^="#"]';
+	
+		$(anchorSelector).on('click', function (e) {
+		
+			// Prevent scrolling if the
+			// hash value is blank
+			e.preventDefault();
+	
+			// Get the destination to scroll to
+			// using the hash property
+			let destination = $(this.hash);
+	
+			// Get the position of the destination
+			// using the coordinates returned by
+			// offset() method
+			let scrollPosition
+				= destination.offset().top;
+	
+			// Specify animation duration
+			let animationDuration = 500;
+	
+			// Animate the html/body with
+			// the scrollTop() method
+			$('html, body').animate({
+				scrollTop: scrollPosition
+			}, animationDuration);
+		});
+	</script>
+</body>
+
+</html>

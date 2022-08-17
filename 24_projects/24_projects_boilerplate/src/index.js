@@ -124,7 +124,6 @@ const CountryCard = ({ data }) => {
 
 	}
 
-
 	return (
 		<div style={style}>
 			<div style={imgDivStyle}>
