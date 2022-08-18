@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import ReactDOM from 'react-dom'
 import styled from 'styled-components';
 import { VscGraph } from 'react-icons/vsc'
@@ -280,6 +280,8 @@ countriesData.forEach((element) => {
 	totalPopulation += element.population;
 })
 
+
+
 const App = () => {
 
 const [constData, setConstData] = useState(countriesData);
@@ -288,11 +290,13 @@ const [data, setData] = useState(countriesData);
 useEffect(() => {
 })
 
+
 const handleChangeValue = (e) => {
 	const filtreData = constData.filter((element) => element.name.toLowerCase().includes(e.target.value.toLowerCase()))
 	setData(filtreData);
 }
 const handleOnClick = (e) => {
+	window.scroll(0, rootElement.clientHeight);
 }
 
 
