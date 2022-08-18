@@ -1,43 +1,90 @@
-import React, { useState, useEffect } from 'react'
-import axios from 'axios'
-import ReactDOM, { findDOMNode } from 'react-dom'
-import useFetch from './useFetch'
+import React, { useState, useEffect, useContext } from 'react'
+import ReactDOM from 'react-dom'
 
-const Country = ({ country: { name, flag, population } }) => {
-  return (
-    <div className='country'>
-      <div className='country_flag'>
-        <img src={flag} alt={name} />
-      </div>
-      <h3 className='country_name'>{name.toUpperCase()}</h3>
-      <div class='country_text'>
-        <p>
-          <span>Population: </span>
-          {population}
-        </p>
-      </div>
-    </div>
-  )
+const ThemeContext = React.createContext('white');
+const BackgroundColor = React.createContext('black');
+
+class App extends React.Component {
+  render() {
+    // Geçerli temayı aşağıdaki ağaca taşımak için bir Provider kullanın.
+    // Herhangi bir bileşen ne kadar derinde olursa olsun okuyabilir.
+    // Bu örnekte, mevcut değer olarak "dark" geçiyoruz.
+    return (
+      <ThemeContext.Provider value="orange">
+        <BackgroundColor.Provider value="black">
+          <Toolbar />
+          <div>
+            <div>
+              <Footer />
+            </div>
+          </div>
+        </BackgroundColor.Provider>
+      </ThemeContext.Provider>
+    );
+  }
 }
 
-const App = (props) => {
-  const url = 'https://restcountries.eu/rest/v2/all'
-  const data = useFetch(url)
-
+// Aradaki bir bileşen artık temayı açıkça aşağı aktarmak zorunda değil.
+function Toolbar() {
   return (
-    <div className='App'>
-      <h1>Custom Hooks</h1>
-      <h1>Calling API</h1>
-      <div>
-        <p>There are {data.length} countries in the api</p>
-        <div className='countries-wrapper'>
-          {data.map((country) => (
-            <Country country={country} />
-          ))}
-        </div>
-      </div>
+    <div>
+      <ThemedButton />
     </div>
-  )
+  );
+}
+
+const Footer = () => {
+
+	return (
+		<React.Fragment>
+			<BackgroundChange />
+		</React.Fragment>
+	)
+}
+
+const BackgroundChange = () => {
+
+	const value = useContext(BackgroundColor);
+
+	const style = {
+		width: '100px',
+		height: '100px',
+		display: 'flex',
+		justifyContent: 'center',
+		alignItems: 'center',
+		backgroundColor: value,
+		color: 'white',
+	}
+
+	return (
+		<div style={style}>
+			{value}
+		</div>
+	)
+}
+
+class ThemedButton extends React.Component {
+  // Mevcut tema context'ini okumak için bir contextType atayın.
+  // React, en yakın tema Provider'ı bulacak ve değerini kullanacak.
+  // Bu örnekte mevcut tema "dark"tır.
+  static contextType = ThemeContext;
+  static colors = BackgroundColor;
+  
+  render() {
+
+	const style = {
+		color: this.context,
+		display: 'flex',
+		flexDirection: 'column',
+	}
+
+    return (
+		<div style={style}>
+			{this.context}
+			{this.context}
+		</div>
+	)
+  }
 }
 
 const rootElement = document.getElementById('root')
