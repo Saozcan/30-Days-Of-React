@@ -27,7 +27,7 @@ const FunctionComponenet = () => {
 		const myTimer = setInterval(() => {
 			setCounter( counter => counter + 1);
 		}, 1000)
-		return () => clearInterval(myTimer);
+		return () => clearInterval(myTimer); //before destroy the componenet you have to use it
 	}, [count])
 
 	const onClick = () => {
