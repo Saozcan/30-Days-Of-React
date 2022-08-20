@@ -2,13 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { FormCard } from './FormCard'
 import TweetCard from './TweetCard'
 
-const dataList = []
 
 const Main = () => {
 
-	const [data, setData] = useState('');
-	const [parag, setParag] = useState('');
-
+	const [data, setData] = useState();
+	const [dataList, setDataList] = useState();
+	const [arr, setArr] = useState([])
 
 	const style = {
 		display: 'flex',
@@ -17,15 +16,24 @@ const Main = () => {
 		flexDirection: 'column',
 	}
 
+	useEffect(() => {
+		if (data) {
+			let cp = [...arr];
+			cp = [...cp, data]
+			setArr(cp)
+		}
+	},[data])
+	console.log(arr)
+
 	return (
     <div style={style} className='main-wrapper'>
-		<FormCard takeValue={setData} />
-		{dataList}
+		<FormCard setData={setData} dataFull={data} />
+		{arr.map((item, index) => (
+			<TweetCard data={item} key={index} />
+		))}
     </div>
   );
 }
-
-
 
 
 

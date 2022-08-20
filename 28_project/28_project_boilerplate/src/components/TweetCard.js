@@ -76,7 +76,7 @@ const TweetCard = ({data}) => {
           <div style={{ margin: "0 3px", fontSize: "13px" }}>@{nick}</div>
         </div>
         <div style={midDiv}>
-          <p>{parag}</p>
+          <p>{paragraph}</p>
         </div>
         <div style={bottomDiv}>
           <div style={{ display: "flex", color: "#92d0f0" }}>

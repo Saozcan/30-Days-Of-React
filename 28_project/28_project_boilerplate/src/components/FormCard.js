@@ -22,11 +22,11 @@ export const TextareaStyled = styled.textarea`
 	}
 `
 
-export const FormCard = ({takeValue}) => {
+export const FormCard = ({setData, dataFull}) => {
 
 	const [totalChar, setTotalChar] = useState(250);
 	const [inputPosition, setInputPosition] = useState(true);
-	const [parag, setParag] = useState('');
+	const [paragraph, setParag] = useState('');
 
 	const style = {
 		display: 'flex',
@@ -76,10 +76,10 @@ export const FormCard = ({takeValue}) => {
 		const data = {
       name: "isimsiz",
       nick: "isimsiz",
-      paragraph: parag,
+      paragraph: paragraph,
       date: "2022",
-    };
-		takeValue(data);
+		};
+		setData(data);
 		e.preventDefault();
 	}
 
