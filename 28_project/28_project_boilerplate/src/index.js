@@ -1,47 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom'
+import App from './components/App'
 
 const bodyElement = document.querySelector('body');
-bodyElement.style.backgroundColor = 'bisque';
+bodyElement.style.backgroundColor = 'white';
 
-const App = (props) => {
-  const [position, setPosition] = useState(true);
-
-  const onClickChangePosition = () => {
-    setPosition(!position);
-  };
-
-  return (
-    <div className="App">
-      {position ? <FunctionComponenet /> : <div />}
-      <button onClick={onClickChangePosition}>position</button>
-    </div>
-  );
-}
-
-const FunctionComponenet = () => {
-	const [count, setCount] = useState(0);
-	const [counter, setCounter] = useState(0);
-
-	useEffect(() => {
-		const myTimer = setInterval(() => {
-			setCounter( counter => counter + 1);
-		}, 1000)
-		return () => clearInterval(myTimer);
-	}, [count])
-
-	const onClick = () => {
-    setCount(count + 1);
-  }
-	
-
-  return (
-    <div className="App">
-		<p>{counter}</p>
-      <button onClick={onClick}>Style it</button>
-    </div>
-  );
-}
 
 const rootElement = document.getElementById('root')
 ReactDOM.render(<App />, rootElement)
