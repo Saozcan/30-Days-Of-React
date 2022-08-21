@@ -16,7 +16,7 @@ const Main = () => {
 	}
 
 	useEffect(() => {
-		data && setArr([...arr, data])
+		data && setArr( arr => [...arr, data])
 	},[data])
 
 	return (
