@@ -6,7 +6,6 @@ import TweetCard from './TweetCard'
 const Main = () => {
 
 	const [data, setData] = useState();
-	const [dataList, setDataList] = useState();
 	const [arr, setArr] = useState([])
 
 	const style = {
@@ -17,13 +16,8 @@ const Main = () => {
 	}
 
 	useEffect(() => {
-		if (data) {
-			let cp = [...arr];
-			cp = [...cp, data]
-			setArr(cp)
-		}
+		data && setArr([...arr, data])
 	},[data])
-	console.log(arr)
 
 	return (
     <div style={style} className='main-wrapper'>
